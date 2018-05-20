@@ -49,14 +49,18 @@ func (udp *Udp) Send(addr string, msg base.SipMessage) error {
 	}
 
 	var conn *net.UDPConn
-	conn, err = net.DialUDP("udp", nil, raddr)
-	if err != nil {
-		return err
+	if len(udp.listeningPoints) > 0 {
+		conn = udp.listeningPoints[0]
+		_, err = conn.WriteTo([]byte(msg.String()), raddr)
+	} else {
+		conn, err = net.DialUDP("udp", nil, raddr)
+		if err != nil {
+			return err
+		}
+		defer conn.Close()
+
+		_, err = conn.Write([]byte(msg.String()))
 	}
-	defer conn.Close()
-
-	_, err = conn.Write([]byte(msg.String()))
-
 	return err
 }
 
