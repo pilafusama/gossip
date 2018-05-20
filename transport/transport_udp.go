@@ -1,9 +1,9 @@
 package transport
 
 import (
-	"github.com/stefankopieczek/gossip/base"
-	"github.com/stefankopieczek/gossip/log"
-	"github.com/stefankopieczek/gossip/parser"
+	"github.com/tuotoo/gossip/base"
+	"github.com/tuotoo/gossip/log"
+	"github.com/tuotoo/gossip/parser"
 )
 
 import (
