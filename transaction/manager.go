@@ -312,3 +312,51 @@ func (mng *Manager) request(r *base.Request) {
 
 	mng.requests <- tx
 }
+
+// Handle a request.
+func (mng *Manager) SendResponse(r *base.Request, resp *base.Response) {
+	// Create a new transaction
+	tx := &ServerTransaction{}
+	tx.tm = mng
+	tx.origin = r
+	tx.transport = mng.transport
+
+	// Use the remote address in the top Via header.  This is not correct behaviour.
+	viaHeaders := tx.Origin().Headers("Via")
+	if len(viaHeaders) == 0 {
+		log.Warn("No Via header on new transaction. Transaction will be dropped.")
+		return
+	}
+
+	via, ok := viaHeaders[0].(*base.ViaHeader)
+	if !ok {
+		panic(errors.New("Headers('Via') returned non-Via header!"))
+	}
+
+	if len(*via) == 0 {
+		log.Warn("Via header contained no hops! Transaction will be dropped.")
+		return
+	}
+
+	hop := (*via)[0]
+
+	port := uint16(5060)
+
+	if hop.Port != nil {
+		port = *hop.Port
+	}
+
+	tx.dest = fmt.Sprintf("%s:%d", hop.Host, port)
+	tx.transport = mng.transport
+
+	tx.initFSM()
+
+	tx.tu = make(chan *base.Response, 3)
+	tx.tu_err = make(chan error, 1)
+	tx.ack = make(chan *base.Request, 1)
+
+	tx.lastResp = resp
+	tx.fsm.Spin(server_input_user_1xx)
+
+	mng.requests <- tx
+}
