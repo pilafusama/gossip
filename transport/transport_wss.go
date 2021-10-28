@@ -2,7 +2,6 @@ package transport
 
 import (
 	"crypto/tls"
-	"crypto/x509"
 	"fmt"
 	"github.com/pilafusama/gossip/log"
 	"net"
@@ -28,9 +27,10 @@ func NewWss(output chan base.SipMessage, certPath, keyPath string) (*Wss, error)
 	w.dialer.Protocols = []string{wsSubProtocol}
 	w.dialer.Timeout = time.Minute
 	w.dialer.TLSConfig = &tls.Config{
-		VerifyPeerCertificate: func(rawCerts [][]byte, verifiedChains [][]*x509.Certificate) error {
-			return nil
-		},
+		InsecureSkipVerify: false,
+		//VerifyPeerCertificate: func(rawCerts [][]byte, verifiedChains [][]*x509.Certificate) error {
+		//	return nil
+		//},
 	}
 	w.up.Protocol = func(val []byte) bool {
 		return string(val) == wsSubProtocol
