@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/tuotoo/gossip/base"
+	"github.com/pilafusama/gossip/base"
 )
 
 type endpoint struct {

@@ -1,0 +1,11 @@
+github.com/discoviking/fsm v0.0.0-20150126104936-f4a273feecca h1:cTTdXpkQ1aVbOOmHwdwtYuwUZcQtcMrleD1UXLWhAq8=
+github.com/discoviking/fsm v0.0.0-20150126104936-f4a273feecca/go.mod h1:W+3LQaEkN8qAwwcw0KC546sUEnX86GIT8CcMLZC4mG0=
+github.com/gobwas/httphead v0.1.0 h1:exrUm0f4YX0L7EBwZHuCF4GDp8aJfVeBrlLQrs6NqWU=
+github.com/gobwas/httphead v0.1.0/go.mod h1:O/RXo79gxV8G+RqlR/otEwx4Q36zl9rqC5u12GKvMCM=
+github.com/gobwas/pool v0.2.1 h1:xfeeEhW7pwmX8nuLVlqbzVc7udMDrwetjEv+TZIz1og=
+github.com/gobwas/pool v0.2.1/go.mod h1:q8bcK0KcYlCgd9e7WYLm9LpyS+YeLd8JVDW6WezmKEw=
+github.com/gobwas/ws v1.1.0-rc.1 h1:VK3aeRXMI8osaS6YCDKNZhU6RKtcP3B2wzqxOogNDz8=
+github.com/gobwas/ws v1.1.0-rc.1/go.mod h1:nzvNcVha5eUziGrbxFCo6qFIojQHjJV5cLYIbezhfL0=
+github.com/pilafusama/gossip v0.0.0-20200826105225-aabc8b985818 h1:6r/iREMOlUU0Vxj2rIXX9bnn1WSJmg31W9eQdi6gVB8=
+github.com/pilafusama/gossip v0.0.0-20200826105225-aabc8b985818/go.mod h1:EHtENcCpVxjDJxJeDKkl+/UdFU5f1XsIlzpV+8mfypg=
+golang.org/x/sys v0.0.0-20201207223542-d4d67f95c62d/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=

@@ -1,9 +1,9 @@
 package parser
 
 import (
-	"github.com/tuotoo/gossip/base"
-	"github.com/tuotoo/gossip/log"
-	"github.com/tuotoo/gossip/utils"
+	"github.com/pilafusama/gossip/base"
+	"github.com/pilafusama/gossip/log"
+	"github.com/pilafusama/gossip/utils"
 )
 
 import (

@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/tuotoo/gossip/base"
-	"github.com/tuotoo/gossip/log"
-	"github.com/tuotoo/gossip/parser"
+	"github.com/pilafusama/gossip/base"
+	"github.com/pilafusama/gossip/log"
+	"github.com/pilafusama/gossip/parser"
 )
 
 type connection struct {
@@ -28,6 +28,9 @@ func NewConn(baseConn net.Conn, output chan base.SipMessage) *connection {
 		isStreamed = true
 	case *tls.Conn:
 		isStreamed = true
+	case *WsConn:
+		isStreamed = true
+
 	default:
 		log.Severe("Conn object %v is not a known connection type. Assume it's a streamed protocol, but this may cause messages to be rejected")
 	}

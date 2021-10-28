@@ -5,7 +5,7 @@ import (
 	"bytes"
 	"io"
 
-	"github.com/tuotoo/gossip/log"
+	"github.com/pilafusama/gossip/log"
 )
 
 // parserBuffer is a specialized buffer for use in the parser package.

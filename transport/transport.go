@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tuotoo/gossip/base"
-	"github.com/tuotoo/gossip/log"
+	"github.com/pilafusama/gossip/base"
+	"github.com/pilafusama/gossip/log"
 )
 
 const c_BUFSIZE int = 65507
@@ -45,6 +45,10 @@ func NewManager(transportType string) (m Manager, err error) {
 		transport, err = NewUdp(n.inputs)
 	case "tcp":
 		transport, err = NewTcp(n.inputs)
+	case "ws":
+		transport, err = NewWs(n.inputs)
+	case "wss":
+		transport, err = NewWss(n.inputs)
 	case "tls":
 		// TODO
 	}

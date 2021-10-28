@@ -1,8 +1,8 @@
 package base
 
 import (
-	"github.com/tuotoo/gossip/log"
-	"github.com/tuotoo/gossip/utils"
+	"github.com/pilafusama/gossip/log"
+	"github.com/pilafusama/gossip/utils"
 )
 
 import "bytes"
