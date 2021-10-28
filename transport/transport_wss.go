@@ -27,7 +27,7 @@ func NewWss(output chan base.SipMessage, certPath, keyPath string) (*Wss, error)
 	w.dialer.Protocols = []string{wsSubProtocol}
 	w.dialer.Timeout = time.Minute
 	w.dialer.TLSConfig = &tls.Config{
-		InsecureSkipVerify: false,
+		InsecureSkipVerify: true,
 		//VerifyPeerCertificate: func(rawCerts [][]byte, verifiedChains [][]*x509.Certificate) error {
 		//	return nil
 		//},
