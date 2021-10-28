@@ -4,17 +4,21 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
-	"github.com/pilafusama/gossip/base"
 	"net"
 	"time"
+
+	"github.com/pilafusama/gossip/base"
 )
 
 type Wss struct {
 	Ws
+	certPath, keyPath string
 }
 
-func NewWss(output chan base.SipMessage) (*Wss, error) {
+func NewWss(output chan base.SipMessage, certPath, keyPath string) (*Wss, error) {
 	w := Wss{}
+	w.certPath = certPath
+	w.keyPath = keyPath
 	w.network = "wss"
 	w.output = output
 	w.listeningPoints = make([]*net.TCPListener, 0)
@@ -39,10 +43,9 @@ func (w *Wss) Listen(address string) error {
 		return err
 	}
 
-	var certPath, keyPath string
-	cert, err := tls.LoadX509KeyPair(certPath, keyPath)
+	cert, err := tls.LoadX509KeyPair(w.certPath, w.keyPath)
 	if err != nil {
-		return fmt.Errorf("load TLS certficate %s: %w", certPath, err)
+		return fmt.Errorf("load TLS certficate %s: %w", w.certPath, err)
 	}
 
 	l, err := tls.Listen("tcp", addr.String(), &tls.Config{

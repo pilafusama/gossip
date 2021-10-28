@@ -33,7 +33,7 @@ type transport interface {
 	Stop()
 }
 
-func NewManager(transportType string) (m Manager, err error) {
+func NewManager(transportType string, certPath, keyPath string) (m Manager, err error) {
 	err = fmt.Errorf("Unknown transport type '%s'", transportType)
 
 	var n notifier
@@ -48,7 +48,7 @@ func NewManager(transportType string) (m Manager, err error) {
 	case "ws":
 		transport, err = NewWs(n.inputs)
 	case "wss":
-		transport, err = NewWss(n.inputs)
+		transport, err = NewWss(n.inputs, certPath, keyPath)
 	case "tls":
 		// TODO
 	}
