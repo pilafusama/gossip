@@ -880,7 +880,7 @@ func parseCSeq(headerName string, headerText string) (
 	return
 }
 
-// Parse a string representation of a Call-Id header, returning a slice of at most one CallId.
+// Parse a string representation of a Call-ID header, returning a slice of at most one CallId.
 func parseCallId(headerName string, headerText string) (
 	headers []base.SipHeader, err error) {
 	headerText = strings.TrimSpace(headerText)
@@ -895,7 +895,7 @@ func parseCallId(headerName string, headerText string) (
 		return
 	}
 	if len(string(callId)) == 0 {
-		err = fmt.Errorf("empty Call-Id body")
+		err = fmt.Errorf("empty Call-ID body")
 		return
 	}
 

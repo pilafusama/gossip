@@ -304,7 +304,7 @@ func (mng *Manager) request(r *base.Request) {
 	base.CopyHeaders("Via", tx.origin, trying)
 	base.CopyHeaders("From", tx.origin, trying)
 	base.CopyHeaders("To", tx.origin, trying)
-	base.CopyHeaders("Call-Id", tx.origin, trying)
+	base.CopyHeaders("Call-ID", tx.origin, trying)
 	base.CopyHeaders("CSeq", tx.origin, trying)
 
 	tx.lastResp = trying
