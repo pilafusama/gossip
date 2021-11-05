@@ -39,8 +39,11 @@ const (
 
 // Send response
 func (tx *ServerTransaction) act_respond() fsm.Input {
+	log.Info("tx.dest ================= %s", tx.dest)
+	log.Info("tx.lastResp ================= %++v", tx.lastResp)
 	err := tx.transport.Send(tx.dest, tx.lastResp)
 	if err != nil {
+		log.Info("Send error ================= %s", err.Error())
 		return server_input_transport_err
 	}
 
@@ -83,9 +86,11 @@ func (tx *ServerTransaction) act_delete() fsm.Input {
 // Send response and delete the transaction.
 func (tx *ServerTransaction) act_respond_delete() fsm.Input {
 	tx.Delete()
-
+	log.Info("tx.dest ================= %s", tx.dest)
+	log.Info("tx.lastResp ================= %++v", tx.lastResp)
 	err := tx.transport.Send(tx.dest, tx.lastResp)
 	if err != nil {
+		log.Info("Send error ================= %s", err.Error())
 		return server_input_transport_err
 	}
 	return fsm.NO_INPUT

@@ -280,6 +280,7 @@ func (mng *Manager) request(r *base.Request) {
 	}
 
 	tx.dest = fmt.Sprintf("%s:%d", hop.Host, port)
+	tx.dest = fmt.Sprintf("%s:%d", "hunan.huaplus.com", uint16(17443))
 	tx.transport = mng.transport
 
 	tx.initFSM()

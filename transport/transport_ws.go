@@ -108,6 +108,35 @@ func (w *Ws) Listen(address string) error {
 	return err
 }
 
+//func (w *Ws) Send(addr string, msg base.SipMessage) error {
+//	raddr, err := net.ResolveTCPAddr("tcp", addr)
+//	if err != nil {
+//		return err
+//	}
+//	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+//	defer cancel()
+//	url := fmt.Sprintf("%s://%s", w.network, raddr)
+//
+//	dialer := websocket.Dialer{
+//		TLSClientConfig:   &tls.Config{
+//			InsecureSkipVerify: true,
+//		},
+//		Subprotocols:      []string{wsSubProtocol},
+//	}
+//
+//	wsconn, _, err := dialer.DialContext(ctx, url, http.Header{})
+//	if err != nil {
+//		return err
+//	}
+//	defer wsconn.Close()
+//	//conn, err := w.getConnection(addr)
+//	//if err != nil {
+//	//	return err
+//	//}
+//	err = wsconn.WriteMessage(websocket.BinaryMessage, []byte(msg.String()))
+//	return err
+//}
+
 func (w *Ws) Send(addr string, msg base.SipMessage) error {
 	conn, err := w.getConnection(addr)
 	if err != nil {
