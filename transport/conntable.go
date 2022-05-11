@@ -3,8 +3,8 @@ package transport
 import (
 	"time"
 
-	"github.com/tuotoo/gossip/log"
-	"github.com/tuotoo/gossip/timing"
+	"github.com/pilafusama/gossip/log"
+	"github.com/pilafusama/gossip/timing"
 )
 
 // Fields of connTable should only be modified by the dedicated goroutine called by Init().

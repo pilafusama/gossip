@@ -1,8 +1,8 @@
 package base
 
 import (
-	"github.com/tuotoo/gossip/log"
-	"github.com/tuotoo/gossip/utils"
+	"github.com/pilafusama/gossip/log"
+	"github.com/pilafusama/gossip/utils"
 )
 
 import "bytes"
@@ -510,10 +510,10 @@ func (h *ContactHeader) Copy() SipHeader {
 type CallId string
 
 func (callId CallId) String() string {
-	return "Call-Id: " + (string)(callId)
+	return "Call-ID: " + (string)(callId)
 }
 
-func (h *CallId) Name() string { return "Call-Id" }
+func (h *CallId) Name() string { return "Call-ID" }
 
 func (h *CallId) Copy() SipHeader {
 	temp := *h

@@ -189,7 +189,7 @@ func TestHeaders(t *testing.T) {
 		{"Unsupported Header (three options)", &UnsupportedHeader{[]string{"NewFeature1", "FunkyExtension", "UnnecessaryAddition"}}, "Unsupported: NewFeature1, FunkyExtension, UnnecessaryAddition"},
 
 		// Various simple headers.
-		{"Call-Id Header", CallId("call-id-1"), "Call-Id: call-id-1"},
+		{"Call-ID Header", CallId("call-id-1"), "Call-ID: call-id-1"},
 		{"CSeq Header", &CSeq{1234, "INVITE"}, "CSeq: 1234 INVITE"},
 		{"Max Forwards Header", MaxForwards(70), "Max-Forwards: 70"},
 		{"Content Length Header", ContentLength(70), "Content-Length: 70"},

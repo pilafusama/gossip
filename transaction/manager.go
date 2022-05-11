@@ -6,10 +6,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tuotoo/gossip/base"
-	"github.com/tuotoo/gossip/log"
-	"github.com/tuotoo/gossip/timing"
-	"github.com/tuotoo/gossip/transport"
+	"github.com/pilafusama/gossip/base"
+	"github.com/pilafusama/gossip/log"
+	"github.com/pilafusama/gossip/timing"
+	"github.com/pilafusama/gossip/transport"
 )
 
 var (
@@ -304,7 +304,7 @@ func (mng *Manager) request(r *base.Request) {
 	base.CopyHeaders("Via", tx.origin, trying)
 	base.CopyHeaders("From", tx.origin, trying)
 	base.CopyHeaders("To", tx.origin, trying)
-	base.CopyHeaders("Call-Id", tx.origin, trying)
+	base.CopyHeaders("Call-ID", tx.origin, trying)
 	base.CopyHeaders("CSeq", tx.origin, trying)
 
 	tx.lastResp = trying

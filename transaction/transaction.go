@@ -5,10 +5,10 @@ import (
 	"time"
 
 	"github.com/discoviking/fsm"
-	"github.com/tuotoo/gossip/base"
-	"github.com/tuotoo/gossip/log"
-	"github.com/tuotoo/gossip/timing"
-	"github.com/tuotoo/gossip/transport"
+	"github.com/pilafusama/gossip/base"
+	"github.com/pilafusama/gossip/log"
+	"github.com/pilafusama/gossip/timing"
+	"github.com/pilafusama/gossip/transport"
 )
 
 // Generic Client Transaction
@@ -178,7 +178,7 @@ func (tx *ClientTransaction) Ack() {
 	// Copy headers from original request.
 	// TODO: Safety
 	base.CopyHeaders("From", tx.origin, ack)
-	base.CopyHeaders("Call-Id", tx.origin, ack)
+	base.CopyHeaders("Call-ID", tx.origin, ack)
 	base.CopyHeaders("Route", tx.origin, ack)
 	cseq := tx.origin.Headers("CSeq")[0].Copy()
 	cseq.(*base.CSeq).MethodName = base.ACK

@@ -7,11 +7,11 @@ import (
 )
 
 import (
-	"github.com/tuotoo/gossip/base"
-	"github.com/tuotoo/gossip/log"
-	"github.com/tuotoo/gossip/parser"
-	"github.com/tuotoo/gossip/testutils"
-	"github.com/tuotoo/gossip/timing"
+	"github.com/pilafusama/gossip/base"
+	"github.com/pilafusama/gossip/log"
+	"github.com/pilafusama/gossip/parser"
+	"github.com/pilafusama/gossip/testutils"
+	"github.com/pilafusama/gossip/timing"
 )
 
 var c_LOG_LEVEL = log.WARN
