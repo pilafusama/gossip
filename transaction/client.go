@@ -42,6 +42,11 @@ func (tx *ClientTransaction) initFSM() {
 func (tx *ClientTransaction) initInviteFSM() {
 	log.Debug("Initialising client INVITE transaction FSM")
 
+	defer func() {
+		if err := recover(); err != nil {
+			log.Severe("initInviteFSM failed", err)
+		}
+	}()
 	// Define Actions
 
 	// Resend the request.
