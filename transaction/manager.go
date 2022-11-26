@@ -1,7 +1,6 @@
 package transaction
 
 import (
-	"errors"
 	"fmt"
 	"sync"
 	"time"
@@ -75,8 +74,8 @@ func (mng *Manager) putTx(tx Transaction) {
 
 	via, ok := viaHeaders[0].(*base.ViaHeader)
 	if !ok {
-		// TODO: Handle this better.
-		panic(errors.New("Headers('Via') returned non-Via header!"))
+		log.Warn("Headers('Via') returned non-Via header!")
+		return
 	}
 
 	branch, ok := (*via)[0].Params.Get("branch")
@@ -103,9 +102,13 @@ func (mng *Manager) putTx(tx Transaction) {
 
 func (mng *Manager) makeKey(s base.SipMessage) (key, bool) {
 	viaHeaders := s.Headers("Via")
+	if len(viaHeaders) == 0 {
+		return key{}, false
+	}
 	via, ok := viaHeaders[0].(*base.ViaHeader)
 	if !ok {
-		panic(errors.New("Headers('Via') returned non-Via header!"))
+		log.Warn("Headers('Via') returned non-Via header!")
+		return key{}, false
 	}
 
 	b, ok := (*via)[0].Params.Get("branch")
@@ -131,7 +134,8 @@ func (mng *Manager) makeKey(s base.SipMessage) (key, bool) {
 		cseqs := s.Headers("CSeq")
 		if len(cseqs) == 0 {
 			// TODO - Handle non-existent CSeq
-			panic("No CSeq on response!")
+			log.Warn("No CSeq on response!")
+			return key{}, false
 		}
 
 		cseq, _ := s.Headers("CSeq")[0].(*base.CSeq)
@@ -263,7 +267,8 @@ func (mng *Manager) request(r *base.Request) {
 
 	via, ok := viaHeaders[0].(*base.ViaHeader)
 	if !ok {
-		panic(errors.New("Headers('Via') returned non-Via header!"))
+		log.Warn("Headers('Via') returned non-Via header!")
+		return
 	}
 
 	if len(*via) == 0 {
@@ -330,7 +335,8 @@ func (mng *Manager) SendResponse(r *base.Request, resp *base.Response) {
 
 	via, ok := viaHeaders[0].(*base.ViaHeader)
 	if !ok {
-		panic(errors.New("Headers('Via') returned non-Via header!"))
+		log.Warn("Headers('Via') returned non-Via header!")
+		return
 	}
 
 	if len(*via) == 0 {
