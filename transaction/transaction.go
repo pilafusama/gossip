@@ -83,6 +83,7 @@ func (tx *ServerTransaction) Receive(m base.SipMessage) {
 	r, ok := m.(*base.Request)
 	if !ok {
 		log.Warn("Client transaction received request")
+		return
 	}
 
 	var input fsm.Input = fsm.NO_INPUT
@@ -123,6 +124,7 @@ func (tx *ClientTransaction) Receive(m base.SipMessage) {
 	r, ok := m.(*base.Response)
 	if !ok {
 		log.Warn("Client transaction received request")
+		return
 	}
 
 	tx.lastResp = r
