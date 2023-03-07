@@ -56,7 +56,9 @@ func (tx *ServerTransaction) act_final() fsm.Input {
 
 	// Start timer J (we just reuse timer h)
 	tx.timer_h = timing.AfterFunc(64*T1, func() {
-		tx.fsm.Spin(server_input_timer_h)
+		if tx.fsm != nil {
+			tx.fsm.Spin(server_input_timer_h)
+		}
 	})
 
 	return fsm.NO_INPUT

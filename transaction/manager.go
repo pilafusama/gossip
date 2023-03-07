@@ -73,7 +73,7 @@ func (mng *Manager) putTx(tx Transaction) {
 	}
 
 	via, ok := viaHeaders[0].(*base.ViaHeader)
-	if !ok {
+	if !ok || len(*via) == 0 {
 		log.Warn("Headers('Via') returned non-Via header!")
 		return
 	}
@@ -106,7 +106,7 @@ func (mng *Manager) makeKey(s base.SipMessage) (key, bool) {
 		return key{}, false
 	}
 	via, ok := viaHeaders[0].(*base.ViaHeader)
-	if !ok {
+	if !ok || len(*via) == 0 {
 		log.Warn("Headers('Via') returned non-Via header!")
 		return key{}, false
 	}
@@ -168,6 +168,7 @@ func (mng *Manager) delTx(t Transaction) {
 	key, ok := mng.makeKey(t.Origin())
 	if !ok {
 		log.Debug("Could not build lookup key for transaction. Is it missing a branch parameter?")
+		return
 	}
 
 	mng.txLock.Lock()
@@ -211,7 +212,9 @@ func (mng *Manager) Send(r *base.Request, dest string) *ClientTransaction {
 	log.Debug("Client transaction %p, timer_b set to %v!", tx, 64*T1)
 	tx.timer_b = timing.AfterFunc(64*T1, func() {
 		log.Debug("Client transaction %p, timer_b fired!", tx)
-		tx.fsm.Spin(client_input_timer_b)
+		if tx.fsm != nil {
+			tx.fsm.Spin(client_input_timer_b)
+		}
 	})
 
 	// Timer D is set to 32 seconds for unreliable transports, and 0 seconds otherwise.
@@ -220,7 +223,9 @@ func (mng *Manager) Send(r *base.Request, dest string) *ClientTransaction {
 	err := mng.transport.Send(dest, r)
 	if err != nil {
 		log.Warn("Failed to send message: %s", err.Error())
-		tx.fsm.Spin(client_input_transport_err)
+		if tx.fsm != nil {
+			tx.fsm.Spin(client_input_transport_err)
+		}
 	}
 
 	mng.putTx(tx)

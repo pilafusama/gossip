@@ -194,7 +194,10 @@ func (tx *ClientTransaction) initNonInviteFSM() {
 			tx.timer_a_time = T2
 		}
 
-		tx.timer_a.Reset(tx.timer_a_time)
+		if tx.timer_a != nil {
+			tx.timer_a.Reset(tx.timer_a_time)
+		}
+
 		tx.resend()
 		return fsm.NO_INPUT
 	}

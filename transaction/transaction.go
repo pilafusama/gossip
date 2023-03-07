@@ -139,14 +139,16 @@ func (tx *ClientTransaction) Receive(m base.SipMessage) {
 		input = client_input_300_plus
 	}
 
-	tx.fsm.Spin(input)
+	if tx.fsm != nil {
+		tx.fsm.Spin(input)
+	}
 }
 
 // Resend the originating request.
 func (tx *ClientTransaction) resend() {
 	log.Info("Client transaction %p resending request: %v", tx, tx.origin.Short())
 	err := tx.transport.Send(tx.dest, tx.origin)
-	if err != nil {
+	if err != nil && tx.fsm != nil {
 		tx.fsm.Spin(client_input_transport_err)
 	}
 }
@@ -182,11 +184,17 @@ func (tx *ClientTransaction) Ack() {
 	base.CopyHeaders("From", tx.origin, ack)
 	base.CopyHeaders("Call-ID", tx.origin, ack)
 	base.CopyHeaders("Route", tx.origin, ack)
-	cseq := tx.origin.Headers("CSeq")[0].Copy()
-	cseq.(*base.CSeq).MethodName = base.ACK
-	ack.AddHeader(cseq)
-	via := tx.origin.Headers("Via")[0].Copy()
-	ack.AddHeader(via)
+
+	if len(tx.origin.Headers("CSeq")) != 0 {
+		cseq := tx.origin.Headers("CSeq")[0].Copy()
+		cseq.(*base.CSeq).MethodName = base.ACK
+		ack.AddHeader(cseq)
+	}
+
+	if len(tx.origin.Headers("Via")) != 0 {
+		via := tx.origin.Headers("Via")[0].Copy()
+		ack.AddHeader(via)
+	}
 
 	// Copy headers from response.
 	base.CopyHeaders("To", tx.lastResp, ack)
