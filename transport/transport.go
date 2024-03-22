@@ -11,7 +11,7 @@ import (
 )
 
 const c_BUFSIZE int = 65507
-const c_LISTENER_QUEUE_SIZE int = 1000
+const c_LISTENER_QUEUE_SIZE int = 100
 const c_SOCKET_EXPIRY time.Duration = time.Hour
 
 type Manager interface {
