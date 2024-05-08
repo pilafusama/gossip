@@ -30,7 +30,7 @@ type key struct {
 	method string
 }
 
-func NewManager(t transport.Manager, addr string) (*Manager, error) {
+func NewManager(t transport.Manager, addr string, sipMessageChanSize int) (*Manager, error) {
 	mng := &Manager{
 		txs:       map[key]Transaction{},
 		txLock:    &sync.RWMutex{},
@@ -40,7 +40,7 @@ func NewManager(t transport.Manager, addr string) (*Manager, error) {
 	mng.requests = make(chan *ServerTransaction, 5)
 
 	// Spin up a goroutine to pull messages up from the depths.
-	c := mng.transport.GetChannel()
+	c := mng.transport.GetChannel(sipMessageChanSize)
 	go func() {
 		for msg := range c {
 			go mng.handle(msg)

@@ -18,7 +18,7 @@ type Manager interface {
 	Listen(address string) error
 	Send(addr string, message base.SipMessage) error
 	Stop()
-	GetChannel() Listener
+	GetChannel(size int) Listener
 }
 
 type manager struct {
@@ -95,8 +95,8 @@ func (n *notifier) register(l Listener) {
 	n.listenerLock.Unlock()
 }
 
-func (n *notifier) GetChannel() (l Listener) {
-	c := make(chan base.SipMessage, c_LISTENER_QUEUE_SIZE)
+func (n *notifier) GetChannel(size int) (l Listener) {
+	c := make(chan base.SipMessage, size)
 	n.register(c)
 	return c
 }

@@ -25,3 +25,7 @@ _testmain.go
 
 *.exe
 *.test
+/.idea/.gitignore
+/.idea/gossip.iml
+/.idea/modules.xml
+/.idea/vcs.xml
